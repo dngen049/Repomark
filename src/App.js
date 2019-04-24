@@ -14,6 +14,8 @@ class App extends React.Component {
         }
         this.onRemoving = this.onRemoving.bind(this)
         this.onAdding = this.onAdding.bind(this)
+        this.onChanging = this.onChanging.bind(this)
+        this.onSearching = this.onSearching.bind(this)
     }
     
       onRemoving(index){
@@ -69,11 +71,52 @@ class App extends React.Component {
      
      }
      
-     
+     onSearching(){
+        
+        console.log(this.state.input)
+        fetch("https://api.github.com/search/repositories?q="+this.state.input+"language:all&sort=stars&order=desc")
+        .then(res => res.json())
+        .then(
+          (result) => {
+              var final = []
+              for(var i = 0; i<result.items.length; i++){
+                var repo = result.items[i]
+                var el = {
+                    key:repo.id, 
+                    name:repo.full_name,
+                    Owner: repo.owner.login,
+                    lang:repo.language,
+                    Url:repo.html_url,
+                    isAdded: false
+                }
+                final.push(el);
+              }
+            
+            this.setState({
+                data:final
+            })
+          },
+          // Note: it's important to handle errors here
+          // instead of a catch() block so that we don't swallow
+          // exceptions from actual bugs in components.
+          (error) => {
+           
+          }
+        )
+        
+    }
+    onChanging(e){
+        this.setState({
+            input: e.target.value
+        })
+    }
     render() {
         return (
             <div>
-               
+                <div className="SearchDiv">
+                    <input type="text"  onChange={this.onChanging}/>
+                <button onClick={this.onSearching} >search</button>
+                </div>
                 <div  className="TabContainer">
                     <table className="ResultTab"> 
                         <tbody>
