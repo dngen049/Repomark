@@ -1,6 +1,9 @@
 {
-  "short_name": "React App",
+  "short_name": "GitRepo manager",
   "name": "Create React App Sample",
+  "permissions": [
+    "bookmarks"
+  ],
   "icons": [
     {
       "src": "favicon.ico",
@@ -12,4 +15,5 @@
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
+  
 }

@@ -1,5 +1,4 @@
 import React from "react"
-
 import Row from "./Component/Row"
 import Rowd from "./Component/Rowd"
 
@@ -17,29 +16,46 @@ class App extends React.Component {
         this.onChanging = this.onChanging.bind(this)
         this.onSearching = this.onSearching.bind(this)
     }
-    
-      onRemoving(index){
-       
-            const arrayCopy = this.state.favor.filter((row) => row.key !== index);
-            const element = this.state.data.find((row) => row.key === index)
-             var i =  this.state.data.indexOf(element);
-            const arrayCopy1 = this.state.data.filter((row) => row.key !== index);
-            
-             var isAdd = false
-             if(element.isAdded === false){
-                isAdd = true
-            }
-            const newelm = {
-                key:element.key,
-                name: element.name,
-                Owner: element.Owner,
-                lang:element.lang,
-                Url: element.Url,
-                isAdded: isAdd
-            }
+    componentDidMount() {
+       var repos = localStorage.getItem("Repositories")
+       var d = JSON.parse(repos)
+       if(d != null){
+           this.setState({
+               favor:d
+           })
            
-            arrayCopy1.splice(i, 0, newelm)
-            this.setState({data: arrayCopy1,favor: arrayCopy});
+       }
+
+    }
+    
+    onRemoving(key){
+       
+            const arrayCopy = this.state.favor.filter((row) => row.key !== key); // returns arrays that contains all the elements except the element with the key
+            const element = this.state.data.find((row) => row.key === key) // returns element who has this key
+            if(element != null){
+                
+                var i =  this.state.data.indexOf(element);
+               const arrayCopy1 = this.state.data.filter((row) => row.key !== key);
+               
+                var isAdd = false
+                if(element.isAdded === false){
+                   isAdd = true
+               }
+               const newelm = {
+                   key:element.key,
+                   name: element.name,
+                   Owner: element.Owner,
+                   lang:element.lang,
+                   Url: element.Url,
+                   isAdded: isAdd
+               }
+              
+               arrayCopy1.splice(i, 0, newelm)
+               this.setState({data: arrayCopy1,favor: arrayCopy})
+            }else{
+                this.setState({favor:arrayCopy})
+            }
+            localStorage.setItem('Repositories', JSON.stringify(arrayCopy))
          
         }
      onAdding(index){
@@ -65,29 +81,38 @@ class App extends React.Component {
         
          arrayCopy.splice(i, 0, newelm)
          arrayCopy1.push(element)
+
           this.setState({data: arrayCopy,
           favor:arrayCopy1});
-       
+          localStorage.setItem('Repositories', JSON.stringify(arrayCopy1))
+
+          
      
      }
      
      onSearching(){
         
         console.log(this.state.input)
-        fetch("https://api.github.com/search/repositories?q="+this.state.input+"language:all&sort=stars&order=desc")
+        fetch("https://api.github.com/search/repositories?q="+this.state.input+"+language:all&sort=stars&order=desc")
         .then(res => res.json())
         .then(
           (result) => {
               var final = []
               for(var i = 0; i<result.items.length; i++){
                 var repo = result.items[i]
+                var e = this.state.favor.find((row) => row.key === repo.id)
+                var isAdd = false
+                if(e != null){
+                    isAdd= true
+                }
+                
                 var el = {
                     key:repo.id, 
                     name:repo.full_name,
                     Owner: repo.owner.login,
                     lang:repo.language,
                     Url:repo.html_url,
-                    isAdded: false
+                    isAdded: isAdd
                 }
                 final.push(el);
               }
