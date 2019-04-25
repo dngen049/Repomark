@@ -143,7 +143,7 @@ class App extends React.Component {
                 <button onClick={this.onSearching} >search</button>
                 </div>
                 <div  className="TabContainer">
-                    <table className="ResultTab"> 
+                    <table className="FavoriteTab"> 
                         <tbody>
                             <tr>
                             <th>key</th>
@@ -156,7 +156,7 @@ class App extends React.Component {
                         </tbody>
                     </table>
                     
-                    <table className="FavoriteTab">
+                    <table className="ResultTab">
                         <tbody>
                             <tr>
                                 <th>key</th>
