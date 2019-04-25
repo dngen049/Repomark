@@ -8,6 +8,16 @@ This app acts like bookmarks Manager but for gitHub Repositories.
 This web app was built using :
 - React 
 - HTML, CSS
+- ES6
+
+I store the repository in the localStorage
+Some basic Git commands are:
+```
+localStorage.setItem('Repositories', JSON.stringify(array))
+JSON.Parse(localStorage.getItem('Repositories'))
+
+
+```
 
 ## Available Scripts
 
