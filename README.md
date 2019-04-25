@@ -1,13 +1,13 @@
 This app acts like bookmarks Manager but for gitHub Repositories.
--Users can search repository by name
--Bookmark le repository on clicking Add
--Users can delete existing Bookmark
+- Users can search repository by name
+- Bookmark le repository on clicking Add
+- Users can delete existing Bookmark
 
 ## Tech
 
 This web app was built using :
--React 
--HTML, CSS
+- React 
+- HTML, CSS
 
 ## Available Scripts
 
