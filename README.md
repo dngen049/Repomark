@@ -12,7 +12,7 @@ This web app was built using :
 
 I store the repository in the localStorage
 Some basic Git commands are:
-```
+```JavaScript
 localStorage.setItem('Repositories', JSON.stringify(array))
 JSON.Parse(localStorage.getItem('Repositories'))
 
