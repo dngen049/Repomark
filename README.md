@@ -32,4 +32,7 @@ The page will reload if you make edits.<br>
 You will also see any lint errors in the console.
 
 
+## Next Step
 
+- Style the web app
+- Deploy the Web app
